@@ -1,0 +1,149 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  background-color: rgb(20, 20, 20);
+  /* border-left: #ad1616 solid 18vw; */
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.loading {
+  animation: hide 1s 2s both;
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  pointer-events: none;
+}
+
+.wrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+
+.main {
+  flex-grow: 1;
+}
+
+.sidebar {
+  background-color: #ad1616;
+  width: 18vw;
+}
+
+h1 {
+  color: #f4ebf6;
+  border-bottom: solid 1px;
+  position: absolute;
+  top: 1em;
+  left: 18vw;
+  padding: 0 2em 0 1em;
+  margin: 0;
+}
+.hide {
+  display: none;
+}
+a {
+  color: #f4ebf6;
+}
+
+.links {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 2;
+}
+
+.links--opener {
+  display: block;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #ad1616;
+  transition: 1s;
+  transform: scale(1);
+}
+
+.links--state {
+  display: none;
+}
+
+.links--list {
+  pointer-events: none;
+  position: absolute;
+  bottom: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  transition: 0.3s opacity;
+  opacity: 0;
+}
+
+.links--state:checked ~ .links--list {
+  pointer-events: auto;
+  opacity: 1;
+  transition: 0.2s 0.9s opacity;
+}
+
+.links--state:checked ~ .links--opener {
+  transform: scale(4);
+}
+
+.modal {
+  color: #fff;
+  pointer-events: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ad1616;
+  border: solid 1px;
+  width: 80%;
+  height: 80%;
+  z-index: 1;
+  opacity: 0;
+  transition: 0.2s opacity;
+}
+
+.modal:target {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.profile {
+  position: relative;
+  top: 1em;
+  right: 9vw;
+  text-align: center;
+  margin: 5em auto;
+  max-width: 400px;
+  width: 100%;
+  color: #fff;
+}
+
+.profile--image {
+  width: 256px;
+  height: 256px;
+  border-radius: 50%;
+}
