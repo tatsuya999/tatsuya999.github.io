@@ -12,21 +12,18 @@ $(".loading").ripples(
   10
 );
 
-$("body").ripples({
+$(".body").ripples({
   resolution: 300,
   dropRadius: 35,
   perturbance: 0.1
 });
 
-$(".sidebar").ripples({
-  resolution: 300,
-  dropRadius: 35,
-  perturbance: 0.1
-});
+$(".sidebar").ripples();
 
 $(".main").ripples({
-  imageUrl: "name-momonga.png"
+  imageUrl: "./name-momonga.png"
 });
+/*
 $(".wrap").ripples(
   "drop",
   $(".wrap").width() - 64,
@@ -35,12 +32,8 @@ $(".wrap").ripples(
   2,
   10
 );
-
-$(".profile").ripples({
-  resolution: 300,
-  dropRadius: 35,
-  perturbance: 0.1
-});
+*/
+$(".profile").ripples();
 
 $(".profile--image").ripples({
   resolution: 300,
