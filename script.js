@@ -20,6 +20,8 @@ $(".body").ripples({
 
 $(".sidebar").ripples();
 
+$(".sidebar_ver_synth").ripples();
+
 $(".main").ripples({
   imageUrl: "./name-momonga.png"
 });
@@ -40,3 +42,13 @@ $(".profile--image").ripples({
   dropRadius: 35,
   perturbance: 0.1
 });
+
+//ホーム画面の選択オブジェクトの動き
+function moveObject(object_id){
+  object_id.style.animate({
+    left:['0px','200px'],
+   }
+  );
+}
+
+moveObject(".link_profile");
