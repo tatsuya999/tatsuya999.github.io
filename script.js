@@ -51,4 +51,29 @@ function moveObject(object_id){
   );
 }
 
-moveObject(".link_profile");
+function reflectionObject(){
+
+}
+
+window.onload = function(){
+  let start = Date.now();
+  let timer = setInterval(function() {
+    let timePassed = Date.now() - start;
+    v = 1;
+    link_profile.style.left = (v*timePassed/5) + 'px';
+
+    if (parseInt(link_profile.style.left,10) >= screen.availWidth-60){
+    v = -v;
+    link_profile.style.left =(screen.availWidth-60)*2+(v*timePassed/5) + 'px';
+    }
+    if(parseInt(link_profile.style.left,10)<0){
+    v= -v;
+    link_profile.style.left = (v*timePassed/5)-(screen.availWidth-60)*2 + 'px';
+    }
+    //止める関数
+    //clearInterval(timer);
+    console.log(v,parseInt(link_profile.style.left,10))
+    
+  }, 20);
+};
+//moveObject(".link_profile");
