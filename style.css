@@ -92,6 +92,7 @@ h1 {
 }
 
 .link_profile{
+  animation-iteration-count: infinite;
   position: absolute;
   bottom: 32px;
   right: 256px;
