@@ -25,6 +25,8 @@ $(".sidebar_ver_synth").ripples();
 $(".main").ripples({
   imageUrl: "./name-momonga.png"
 });
+
+
 /*
 $(".wrap").ripples(
   "drop",
@@ -54,19 +56,28 @@ function moveObject(){
   // querySelector オブジェクトのid取得
   const object = document.querySelector('#link_profile');
   // movePositionX オブジェクトのx座標
-  let movePositionx= 0;
+  let movePositionx= 4;
+  let movePositiony= 32;
     //アニメーションループの内容
     const Animation=()=>{
       console.log("start Animation",object.style.left)
       const now = new Date();
       const diffSecond = (now.getTime() - prev_time.getTime()) * 0.01;
       prev_time = now;
+      //減衰
+      let ref = 0.998;
       movePositionx = movePositionx + (vx*diffSecond);
+      vx = vx*ref;
       object.style.left= movePositionx+'px';
+      object.style.top = movePositiony+'px';
       //画面端でバウンド処理
-      if(parseInt(object.style.left,10) >= screen.availWidth-63 || parseInt(object.style.left,10)<=-1){
+      if(parseInt(object.style.left,10) >= screen.width-63 || parseInt(object.style.left,10)<=0){
         vx = -vx;
         vector = -vector;
+      }
+      //減衰によるオブジェクトの停止
+      if(Math.abs(vx)<0.5){
+        vx = 0;
       }
       //'mouseover'でカーソルがオブジェクトに当たった時停止、'mouseout'でカーソルが外れた時再稼働
       object.addEventListener('mouseover',function(){
@@ -75,6 +86,14 @@ function moveObject(){
       object.addEventListener('mouseout',function(){
         vx = 10*vector;
       })
+      //波紋のエフェクト
+      $(".main").ripples(
+        "drop",
+        movePositionx+32,
+        movePositiony+32,
+        10,
+        1
+      );
       //アニメーションのループ
       requestAnimationFrame(Animation);
     }
@@ -82,7 +101,7 @@ function moveObject(){
     Animation();
 }
 
-function reflectionObject(){
+function objectRipples(){
   let start = Date.now();
   let timer = setInterval(function() {
     let timePassed = Date.now() - start;
