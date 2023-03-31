@@ -18,25 +18,12 @@ $(".body").ripples({
   perturbance: 0.1
 });
 
-$(".sidebar").ripples();
-
 $(".sidebar_ver_synth").ripples();
 
 $(".main").ripples({
   imageUrl: "./name-momonga.png"
 });
 
-
-/*
-$(".wrap").ripples(
-  "drop",
-  $(".wrap").width() - 64,
-
-  $(".wrap").height() - 64,
-  2,
-  10
-);
-*/
 $(".profile").ripples();
 
 $(".profile--image").ripples({
@@ -58,15 +45,18 @@ function moveObject(){
   // movePositionX オブジェクトのx座標
   let movePositionx= 4;
   let movePositiony= 32;
+  //オブジェクト移動速度減衰率
+  let ref = 0.998;
+  //波紋発火頻度パラメータ
+  let fps = 5;
+  let preFrame;
     //アニメーションループの内容
     const Animation=()=>{
-      console.log("start Animation",object.style.left)
+      console.log("start Animation",fps)
       const now = new Date();
       const diffSecond = (now.getTime() - prev_time.getTime()) * 0.01;
       prev_time = now;
-      //減衰
-      let ref = 0.998;
-      movePositionx = movePositionx + (vx*diffSecond);
+      movePositionx = Math.min(movePositionx + (vx*diffSecond));
       vx = vx*ref;
       object.style.left= movePositionx+'px';
       object.style.top = movePositiony+'px';
@@ -85,15 +75,18 @@ function moveObject(){
       })
       object.addEventListener('mouseout',function(){
         vx = 10*vector;
+        fps = 30;
       })
-      //波紋のエフェクト
-      $(".main").ripples(
-        "drop",
-        movePositionx+32,
-        movePositiony+32,
-        10,
-        1
-      );
+      //波紋の回数の制限
+      function loop(timing=0){
+        let frame = Math.floor((timing - prev_time)/(1000/fps));
+        if(preFrame!=frame){
+          objectRipples(movePositionx,movePositiony)
+        }
+        preFrame = frame;
+        fps= fps*0.99;
+      }
+      loop();
       //アニメーションのループ
       requestAnimationFrame(Animation);
     }
@@ -101,29 +94,15 @@ function moveObject(){
     Animation();
 }
 
-function objectRipples(){
-  let start = Date.now();
-  let timer = setInterval(function() {
-    let timePassed = Date.now() - start;
-    v = 1;
-    link_profile.style.left = (v*timePassed/5) + 'px';
-    if(parseInt(link_profile.style.left,10) >= screen.availWidth-60){
-    v = -v;
-    link_profile.style.left =(screen.availWidth-60)*2+(v*timePassed/5) + 'px';
-    }
-    if(parseInt(link_profile.style.left,10)<0){
-    v= -v;
-    link_profile.style.left = (v*timePassed/5)-(screen.availWidth-60)*2 + 'px';
-    }
-    if(parseInt(link_profile.style.left,10) >= screen.availWidth-60){
-      v = -v;
-      link_profile.style.left =(screen.availWidth-60)*4+(v*timePassed/5) + 'px';
-      }
-    //止める関数
-    //clearInterval(timer);
-    console.log(v,parseInt(link_profile.style.left,10),screen.availWidth)
-    
-  }, 20);
+function objectRipples(movePositionx,movePositiony){
+  //波紋のエフェクト
+  $(".main").ripples(
+    "drop",
+    movePositionx+32,
+    movePositiony+32,
+    50,
+    0.1,
+  );
 }
 
 window.addEventListener('load' ,moveObject());
