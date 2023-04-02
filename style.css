@@ -75,16 +75,22 @@ h1 {
 }
 /*ページ遷移用*/
 .links {
+  display:table;
+  position: relative;
+  text-align: center;
+  color: #f4ebf6;
   z-index: 2;
+  transition: color 0.4;
 }
 /*ホーム戻る用*/
 .link_back{
   position: absolute;
   bottom: 32px;
   right: 32px;
+  text-align: left;
 }
 
-.link_works{
+.links_add{
   position: absolute;
 }
 
@@ -95,8 +101,58 @@ h1 {
 .links a{
   color: #f4ebf6;
 }
+.links a:hover{
+  background: rgb(236,98,43);;
+}
 /*ページ遷移用丸オブジェクト*/
 .links--opener {
+  vertical-align: middle;
+  display: table-cell;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: #ad1616;
+}
+.links--opener a{
+  position: absolute;
+  margin: auto;
+}
+.works--opener {
+  vertical-align: middle;
+  display: table-cell;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: #ad1616;
+}
+.profile--opener {
+  vertical-align: middle;
+  display: table-cell;
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+  background: #ad1616;
+}
+.inst--opener {
+  vertical-align: middle;
+  display: table-cell;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #ad1616;
+}
+.music--opener {
+  vertical-align: middle;
+  display: table-cell;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: #ad1616;
+}
+.music--opener a:hover{
+  background: rgb(236,98,43);
+}
+.backs--opener {
   cursor: pointer;
   display: block;
   width: 64px;
@@ -106,16 +162,17 @@ h1 {
   transition: 1s;
   transform: scale(1);
 }
-
 .links--state {
   pointer-events: auto;
   display: none;
 }
 
 .links--list {
+  text-align: center;
+  display: table;
   pointer-events: none;
   position: absolute;
-  bottom: 65%;
+  bottom: 75%;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -123,6 +180,9 @@ h1 {
   opacity: 0;
 }
 
+.links--listitem{
+  vertical-align: middle;
+}
 .links--state:checked ~ .links--list {
   pointer-events: auto;
   cursor: default;
@@ -130,11 +190,10 @@ h1 {
   transition: 0.2s 0.9s opacity;
 }
 
-.links--state:checked ~ .links--opener {
+.links--state:checked ~ .backs--opener {
   pointer-events: auto;
   transform: scale(3);
 }
-
 /*プロフィール本文用スタイル*/
 .profile {
   background: rgb(20, 20, 20);
