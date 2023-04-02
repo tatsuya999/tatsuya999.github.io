@@ -26,19 +26,13 @@ $(".main").ripples({
 
 $(".profile").ripples();
 
-$(".profile--image").ripples({
-  resolution: 300,
-  dropRadius: 35,
-  perturbance: 0.1
-});
-
 //ホーム画面の選択オブジェクトの動き
 function moveObject(id){
   //windowの開始時間
   let prev_time = new Date();
   //vx オブジェクトの速度
-  let vx = 10;
-  let vy = 10;
+  let vx = getRandomArbitrary(-20,20);
+  let vy = getRandomArbitrary(-20,20);
   //初速度記録用
   let first_vx = vx;
   let first_vy = vy;
@@ -47,9 +41,12 @@ function moveObject(id){
   let vector_y = 1;
   // querySelector オブジェクトのid取得
   const object = document.getElementById(id);
+  // オブジェクトの大きさ
+  let object_size_width = object.clientWidth;
+  let object_size_hight = object.clientHeight;
   // movePositionX オブジェクトのx座標
   let movePositionx= getRandomArbitrary(5,window.innerWidth-70);
-  let movePositiony= getRandomArbitrary(0,window.innerHeight);
+  let movePositiony= getRandomArbitrary(0,window.innerHeight-60);
   //オブジェクト移動速度減衰率
   let ref = 0.998;
   //波紋発火頻度パラメータ
@@ -57,7 +54,6 @@ function moveObject(id){
   let preFrame;
     //アニメーションループの内容
     const Animation=()=>{
-      console.log("start Animation",fps)
       const now = new Date();
       const diffSecond = (now.getTime() - prev_time.getTime()) * 0.01;
       prev_time = now;
@@ -67,13 +63,13 @@ function moveObject(id){
       vy = vy*ref;
       object.style.left= movePositionx+'px';
       object.style.top = movePositiony+'px';
-      //画面端(width)でバウンド処理
-      if(Math.min(parseInt(object.style.left,10)) >= window.innerWidth-70 || Math.min(parseInt(object.style.left,10))<=0){
+      //画面端(width)と衝突でバウンド処理
+      if(Math.min(parseInt(object.style.left,10)+object_size_width) >= window.innerWidth || Math.min(parseInt(object.style.left,10))<=0||objectCollision(id)){
         vx = -vx;
         vector_x = -vector_x;
       }
-      //画面端(height)でバウンド処理
-      if(Math.min(parseInt(object.style.top,10)) >= window.innerHeight-70 || Math.min(parseInt(object.style.top,10))<=0){
+      //画面端(height)と衝突でバウンド処理
+      if(Math.min(parseInt(object.style.top,10)+object_size_hight) >= window.innerHeight|| Math.min(parseInt(object.style.top,10))<=0||objectCollision(id)){
         vy = -vy;
         vector_y = -vector_y;
       }
@@ -109,6 +105,7 @@ function moveObject(id){
     Animation();
 }
 
+//波紋エフェクトを出す関数
 function objectRipples(movePositionx,movePositiony){
   //波紋のエフェクト
   $(".main").ripples(
@@ -123,7 +120,29 @@ function objectRipples(movePositionx,movePositiony){
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
+//2オブジェクトの距離
+function dist(x1,y1,x2,y2){
+  let len = Math.abs(Math.sqrt((x1-x2)**2+(y1-y2)**2));
+  return len;
+}
+
+function objectCollision(object_id){
+  object_list = document.getElementsByClassName('links');
+  // オブジェクトの中心
+  let object_center0_x = (parseInt(object_list[0].style.left,10)+object_list[0].clientWidth/2);
+  let object_center0_y = (parseInt(object_list[0].style.top,10)+object_list[0].clientHeight/2);
+  let object_center1_x = (parseInt(object_list[1].style.left,10)+object_list[1].clientWidth/2);
+  let object_center1_y = (parseInt(object_list[1].style.top,10)+object_list[1].clientHeight/2);
+  let d_01 = dist(object_center0_x,object_center0_y,object_center1_x,object_center1_y);
+  if(d_01<(object_list[0].clientWidth/2)+(object_list[1].clientWidth/2)){
+    if(object_id==object_list[0].id||object_id==object_list[1].id){
+      return true;
+    }
+  }
+  return false;
+}
 
 window.addEventListener('load' ,moveObject("link_works"));
 window.addEventListener('load' ,moveObject("link_profile"));
+window.addEventListener('load' ,objectCollision);
 //moveObject(".link_profile");
