@@ -6,8 +6,8 @@ $(".loading").ripples({
 
 $(".loading").ripples(
   "drop",
-  screen.availWidth / 2,
-  screen.availHeight / 2,
+  window.innerWidth / 2,
+  window.innerHeight / 2,
   200,
   10
 );
@@ -49,15 +49,15 @@ function moveObject(id){
   let movePositiony;
   if(id == "link_works" ){
     console.log("works")
-    movePositionx= getRandomArbitrary(5,(window.innerWidth/2)-100);
-    movePositiony= getRandomArbitrary(0,(window.innerHeight/2)-100);
+    movePositionx= getRandomArbitrary(10,(window.innerWidth/2)-100);
+    movePositiony= getRandomArbitrary(10,(window.innerHeight/2)-100);
   }
   if(id == "link_profile"){
     movePositionx= getRandomArbitrary((window.innerWidth/2),window.innerWidth-100);
-    movePositiony= getRandomArbitrary(0,(window.innerHeight/2)-100);
+    movePositiony= getRandomArbitrary(10,(window.innerHeight/2)-100);
   }
   if(id == "link_inst" ){
-    movePositionx= getRandomArbitrary(5,(window.innerWidth/2)-100);
+    movePositionx= getRandomArbitrary(10,(window.innerWidth/2)-100);
     movePositiony= getRandomArbitrary((window.innerHeight/2),window.innerHeight-100);
   }
   if(id == "link_music"){
