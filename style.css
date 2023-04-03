@@ -149,9 +149,7 @@ h1 {
   border-radius: 50%;
   background: #ad1616;
 }
-.music--opener a:hover{
-  background: rgb(236,98,43);
-}
+
 .backs--opener {
   cursor: pointer;
   display: block;

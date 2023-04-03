@@ -44,10 +44,26 @@ function moveObject(id){
   // オブジェクトの大きさ
   let object_size_width = object.clientWidth;
   let object_size_hight = object.clientHeight;
-  console.log(object_size_hight,object_size_width)
   // movePositionX オブジェクトのx座標
-  let movePositionx= getRandomArbitrary(5,window.innerWidth-100);
-  let movePositiony= getRandomArbitrary(0,window.innerHeight-100);
+  let movePositionx;
+  let movePositiony;
+  if(id == "link_works" ){
+    console.log("works")
+    movePositionx= getRandomArbitrary(5,(window.innerWidth/2)-100);
+    movePositiony= getRandomArbitrary(0,(window.innerHeight/2)-100);
+  }
+  if(id == "link_profile"){
+    movePositionx= getRandomArbitrary((window.innerWidth/2),window.innerWidth-100);
+    movePositiony= getRandomArbitrary(0,(window.innerHeight/2)-100);
+  }
+  if(id == "link_inst" ){
+    movePositionx= getRandomArbitrary(5,(window.innerWidth/2)-100);
+    movePositiony= getRandomArbitrary((window.innerHeight/2),window.innerHeight-100);
+  }
+  if(id == "link_music"){
+    movePositionx= getRandomArbitrary((window.innerWidth/2),window.innerWidth-100);
+    movePositiony= getRandomArbitrary((window.innerHeight/2),window.innerHeight-100);
+  }
   //オブジェクト移動速度減衰率
   let ref = 0.998;
   //波紋発火頻度パラメータ
